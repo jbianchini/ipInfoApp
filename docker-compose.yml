@@ -1,0 +1,16 @@
+# Compose two docker services: One for the Mongo DB and the other one containing 
+# the IpInfo application. The last one contains a link to the database service.
+version: "3.8"
+services:
+  ipinfo-app-db:
+    image: mongo:4.4.5-bionic
+    container_name: mongo-db-container
+    ports:
+      - 27017:27017
+  ipinfo-app-image:
+    image: ipinfo-app
+    container_name: ipinfo-app-container
+    ports:
+      - 8080:8080
+    links:
+      - ipinfo-app-db
